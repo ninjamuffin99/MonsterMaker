@@ -1,5 +1,6 @@
 package;
 
+import flixel.ui.FlxBar;
 import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
@@ -14,6 +15,8 @@ class PlayState extends FlxState
 	private var btnClean:FlxButton;
 
 	private var stats:FlxText;
+	private var brClean:FlxBar;
+	private var brHungry:FlxBar;
 
 	override public function create():Void
 	{
@@ -24,13 +27,24 @@ class PlayState extends FlxState
 		add(baby);
 
 		stats = new FlxText(40, 200, 0, "Statslol", 32);
-		add(stats);
+		//add(stats);
 
 		btnClean = new FlxButton(300, 10, "Clean", function()
 		{
 			baby.cleanliness = 1;
 		});
 		add(btnClean);
+
+	
+
+		brClean = new FlxBar(btnClean.x, btnClean.y + 20, null, 100, 10, baby, "cleanliness", 0, 1);
+		add(brClean);
+
+		var btnFeed:FlxButton = new FlxButton(brClean.x, brClean.y + 25, "Feed", function(){baby.hungry = 1;});
+		add(btnFeed);
+
+		brHungry = new FlxBar(btnFeed.x, btnFeed.y + 25, null, 100, 10, baby, "hungry", 0, 1);
+		add(brHungry);
 
 
 		if (!Reg.firstRun)
