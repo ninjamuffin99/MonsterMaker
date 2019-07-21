@@ -16,6 +16,7 @@ class Baby extends FlxSprite
 	private var ageProgress:Float = 0;
 	private var age:Int = 0;
 	public var cleanliness:Float = 1;
+	public var entertainment:Float = 1;
 	public var hungry:Float = 1;
 	
 	public var ageTimestamp:Date = Date.now();
@@ -25,7 +26,7 @@ class Baby extends FlxSprite
 	{
 		super(X, Y);
 		babyID = id;
-		makeGraphic(64, 64);
+		makeGraphic(1, 1);
 	}
 	
 	public function ageCheck():Void
@@ -44,6 +45,9 @@ class Baby extends FlxSprite
 			cleanliness -= elapsed * 0.001;
 		if (hungry > 0)
 			hungry -= elapsed * 0.01;
+		
+		if (entertainment > 0)
+			entertainment -= elapsed * 0.05;
 
 		super.update(elapsed);
 	}

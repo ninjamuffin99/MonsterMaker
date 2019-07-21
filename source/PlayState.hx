@@ -26,12 +26,16 @@ class PlayState extends FlxState
 		baby = new Baby(20, 20);
 		add(baby);
 
+		var bruhtxt:FlxText = new FlxText(baby.x, baby.y, 0, "bruh", 32);
+		add(bruhtxt);
+
 		stats = new FlxText(40, 200, 0, "Statslol", 32);
 		//add(stats);
 
 		btnClean = new FlxButton(300, 10, "Clean", function()
 		{
 			baby.cleanliness = 1;
+			bruh();
 		});
 		add(btnClean);
 
@@ -40,11 +44,25 @@ class PlayState extends FlxState
 		brClean = new FlxBar(btnClean.x, btnClean.y + 20, null, 100, 10, baby, "cleanliness", 0, 1);
 		add(brClean);
 
-		var btnFeed:FlxButton = new FlxButton(brClean.x, brClean.y + 25, "Feed", function(){baby.hungry = 1;});
+		var btnFeed:FlxButton = new FlxButton(brClean.x, brClean.y + 25, "Feed", function()
+		{
+			baby.hungry = 1;
+			bruh();
+		});
 		add(btnFeed);
 
 		brHungry = new FlxBar(btnFeed.x, btnFeed.y + 25, null, 100, 10, baby, "hungry", 0, 1);
 		add(brHungry);
+
+		var btnPlay:FlxButton = new FlxButton(brHungry.x, brHungry.y + 20, "PLAY", function()
+		{
+			baby.entertainment = 1;
+			bruh();
+		});
+		add(btnPlay);
+
+		var brPlay:FlxBar = new FlxBar(btnPlay.x, btnPlay.y + 20, null, 100, 10, baby, "entertainment", 0, 1);
+		add(brPlay);
 
 
 		if (!Reg.firstRun)
@@ -94,5 +112,10 @@ class PlayState extends FlxState
 
 		Reg.save();
 		saving.alpha = 1;
+	}
+
+	private function bruh():Void 
+	{
+		FlxG.sound.play(AssetPaths.bruh__mp3);
 	}
 }
