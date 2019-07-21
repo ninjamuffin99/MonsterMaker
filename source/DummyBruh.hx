@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.mouse.FlxMouseEventManager;
 import flixel.system.debug.log.Log;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
@@ -20,7 +21,10 @@ class DummyBruh extends FlxSprite
 	private var _idleTmr:Float = 1;
 	private var _moveDir:Float;
 
-	private var speed = 100;
+	private var speed = 150;
+
+	public var mousePressing:Bool = false;
+	private var mouseOffset:FlxPoint = FlxPoint.get(0, 0);
 	
 
     public function new(X:Float, Y:Float)
@@ -29,13 +33,27 @@ class DummyBruh extends FlxSprite
         _brain = new FSM(idle);
 		drag.x = drag.y = 2500;
 		drag.x = drag.y = drag.x * 0.07;
-        makeGraphic(1, 1, FlxColor.TRANSPARENT);
+        makeGraphic(100, 60, FlxColor.RED);
+		alpha = 0.1;
+
+		FlxMouseEventManager.add(this, winDragSet);
     }
 
     override function update(elapsed:Float) 
     {
         super.update(elapsed);
         _brain.update();
+
+		if (mousePressing && FlxG.mouse.x >= 0 && FlxG.mouse.x <= FlxG.width && FlxG.mouse.y >= 0 && FlxG.mouse.y <= FlxG.height)
+		{
+			this.x = FlxG.mouse.x - mouseOffset.x;
+			this.y = FlxG.mouse.y - mouseOffset.y;
+		}
+		
+		if (FlxG.mouse.justReleased)
+		{
+			mousePressing = false;
+		}
     }
 
     
@@ -62,6 +80,12 @@ class DummyBruh extends FlxSprite
 		}
 		else
 			_idleTmr -= FlxG.elapsed;
+	}
+
+	private function winDragSet(_)
+	{
+		mousePressing = true;
+		mouseOffset.set(FlxG.mouse.x - this.x, FlxG.mouse.y - this.y);
 	}
 
 }

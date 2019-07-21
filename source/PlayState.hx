@@ -29,6 +29,14 @@ class PlayState extends FlxState
 		baby = new Baby(200, 200, 0, dum);
 		add(baby);
 
+		for (i in 0...10)
+		{
+			var dum1:DummyBruh = new DummyBruh(FlxG.random.float(0, FlxG.width - 100), FlxG.random.float(0, FlxG.height - 100));
+			add(dum1);
+
+			var baby1:Baby = new Baby(200, 200, 0, dum1);
+			add(baby1);
+		}
 
 		stats = new FlxText(40, 200, 0, "Statslol", 32);
 		//add(stats);
