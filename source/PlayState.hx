@@ -23,11 +23,12 @@ class PlayState extends FlxState
 		saving = new FlxText(10, 300, 0, "SAVING", 32);
 		add(saving);
 
-		baby = new Baby(20, 20);
+		var dum:DummyBruh = new DummyBruh(200, 200);
+		add(dum);
+
+		baby = new Baby(200, 200, 0, dum);
 		add(baby);
 
-		var bruhtxt:FlxText = new FlxText(baby.x, baby.y, 0, "bruh", 32);
-		add(bruhtxt);
 
 		stats = new FlxText(40, 200, 0, "Statslol", 32);
 		//add(stats);

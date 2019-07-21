@@ -1,5 +1,8 @@
 package;
 
+import flixel.system.debug.log.Log;
+import flixel.math.FlxPoint;
+import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -10,7 +13,7 @@ import flixel.util.FlxTimer;
  * ...
  * @author 
  */
-class Baby extends FlxSprite 
+class Baby extends FlxText 
 {
 	private var happiness:Float = 0;
 	private var ageProgress:Float = 0;
@@ -21,13 +24,18 @@ class Baby extends FlxSprite
 	
 	public var ageTimestamp:Date = Date.now();
 	private var babyID:Int = 0;
-	
-	public function new(?X:Float=0, ?Y:Float=0, id:Int = 0) 
+
+	private var stupid:DummyBruh;
+
+	public function new(?X:Float=0, ?Y:Float=0, id:Int = 0, stupid:DummyBruh) 
 	{
-		super(X, Y);
+		//super(X, Y);
+		super(X, Y, 0, "bruh", 32);
 		babyID = id;
-		makeGraphic(1, 1);
-	}
+
+		this.stupid = stupid;
+
+	}//
 	
 	public function ageCheck():Void
 	{
@@ -39,6 +47,8 @@ class Baby extends FlxSprite
 	
 	override public function update(elapsed:Float):Void 
 	{
+		setPosition(stupid.x, stupid.y);
+
 		ageProgress += elapsed;
 
 		if (cleanliness > 0)
@@ -50,6 +60,8 @@ class Baby extends FlxSprite
 			entertainment -= elapsed * 0.05;
 
 		super.update(elapsed);
+
+		
 	}
 	
 }
